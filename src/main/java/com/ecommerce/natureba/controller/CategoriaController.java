@@ -39,11 +39,10 @@ public class CategoriaController {
 
     @PutMapping
     public ResponseEntity<Categoria> putCategoria(@Valid @RequestBody Categoria categoria) {
-
         return categoriaRepository.findById(categoria.getId())
-                .map(resposta -> ResponseEntity.status(HttpStatus.Ok)
-                        .body(categoriaRepository.save(categoria))
-                .orElse(ResponseEntity.notFound().build());
+                .map(resposta -> ResponseEntity.status(HttpStatus.OK)
+                        .body(categoriaRepository.save(categoria)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 
     }
 }
