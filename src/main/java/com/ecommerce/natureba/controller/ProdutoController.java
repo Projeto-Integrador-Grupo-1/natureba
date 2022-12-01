@@ -54,13 +54,10 @@ public class ProdutoController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-<<<<<<< HEAD
+
     @DeleteMapping("{/id}")
     public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
-=======
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduto(@PathVariable Long id){
->>>>>>> origin/task05
+
 
         return produtoRepository.findById(id)
                 .map(resposta -> {
