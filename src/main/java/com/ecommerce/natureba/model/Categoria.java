@@ -21,7 +21,7 @@ public class Categoria {
     @Size(min = 1, max = 1000, message = "O tamanho minimo de 1 e maximo 1000 caracteres!" )
     private String descricao;
 
-    public Long getId() {
+    public Long id() {
         return id;
     }
 
@@ -45,4 +45,15 @@ public class Categoria {
         this.descricao = descricao;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }
