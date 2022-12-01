@@ -3,10 +3,12 @@ import com.ecommerce.natureba.model.Produto;
 import com.ecommerce.natureba.repository.CategoriaRepository;
 import com.ecommerce.natureba.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -29,9 +31,16 @@ public class ProdutoController {
     }
 
     @GetMapping("/preco_menor")
-    public ResponseEntity<List<Produto>> getPrecoMaior(){
-        return ResponseEntity.ok(produtoRepository.findAllByPrecoOrderByPreco());
+    public ResponseEntity<List<Produto>> getPrecoMenor(){
+        return ResponseEntity.ok(produtoRepository.findAll(Sort.by(Sort.Direction.DESC,"preco")));
     }
+
+    @GetMapping("/preco_maior")
+    public ResponseEntity<List<Produto>> getPrecoMaior(){
+        return ResponseEntity.ok(produtoRepository.findAll(Sort.by(Sort.Direction.ASC,"preco")));
+    }
+
+
 
     @GetMapping
     public ResponseEntity<List<Produto>> getAll(){
@@ -45,7 +54,7 @@ public class ProdutoController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduto(@PathVariable Long id){
 
         return produtoRepository.findById(id)
@@ -54,7 +63,7 @@ public class ProdutoController {
                     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
                 })
                 .orElse(ResponseEntity.notFound().build());
-}
+    }
 
     @PostMapping
     public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
