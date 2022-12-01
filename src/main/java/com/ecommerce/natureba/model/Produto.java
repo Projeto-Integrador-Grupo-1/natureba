@@ -2,8 +2,10 @@ package com.ecommerce.natureba.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tb_produto")
