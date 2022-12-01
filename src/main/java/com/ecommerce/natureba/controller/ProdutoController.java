@@ -1,10 +1,14 @@
 package com.ecommerce.natureba.controller;
 
+import com.ecommerce.natureba.model.Produto;
 import com.ecommerce.natureba.repository.CategoriaRepository;
+import com.ecommerce.natureba.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/produto")
@@ -15,7 +19,11 @@ public class ProdutoController {
     CategoriaRepository categoriaRepository;
 
     @Autowired
-    ProdutoController produtoController;
-
-    
+    ProdutoRepository produtoRepository;
+    @PostMapping
+    public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
+        return categoriaRepository.findById(produto.getCategoria().getId())
+                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto)))
+                .orElse(ResponseEntity.badRequest().build());
+    }
 }
