@@ -46,7 +46,7 @@ public class ProdutoController {
     }
     
     @DeleteMapping("{/id}")
-    public ResponseEntity<?> deleteProduto(@PathVariable Long id){
+    public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
 
         return produtoRepository.findById(id)
                 .map(resposta -> {
@@ -54,7 +54,7 @@ public class ProdutoController {
                     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
                 })
                 .orElse(ResponseEntity.notFound().build());
-}
+    }
 
     @PostMapping
     public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
