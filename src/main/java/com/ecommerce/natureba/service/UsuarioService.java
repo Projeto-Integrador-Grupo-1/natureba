@@ -70,7 +70,7 @@ public class UsuarioService {
     }
     private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
 
-<<<<<<< HEAD
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         return encoder.matches(senhaDigitada, senhaBanco);
@@ -79,6 +79,5 @@ public class UsuarioService {
 
 
 
-=======
->>>>>>> origin/task06
+
 }
