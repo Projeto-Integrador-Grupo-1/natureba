@@ -42,7 +42,7 @@ public class ProdutoController {
 
 
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Produto>> getAll(){
         return ResponseEntity.ok(produtoRepository.findAll());
     }
