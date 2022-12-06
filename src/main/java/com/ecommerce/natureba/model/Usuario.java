@@ -16,15 +16,15 @@ public class Usuario {
     private String nome;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 10, message = "O tamanho minimo de 10" )
+    @Size(min = 8, message = "O tamanho minimo de 8" )
     private String usuario;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 20, message = "O tamanho minimo de 20!" )
+    @Size(min = 8, message = "O tamanho minimo de 8!" )
     private String senha;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 5, message = "O tamanho minimo de 1 e maximo 20 caracteres!" )
+    @Size(min = 5, message = "O tamanho minimo de 5 caracteres" )
     private String foto;
 
     public Long getId() {
