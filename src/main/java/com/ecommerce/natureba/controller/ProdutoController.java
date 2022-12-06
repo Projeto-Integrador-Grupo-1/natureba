@@ -30,12 +30,12 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
     }
 
-    @GetMapping("/preco_menor")
+    @GetMapping("/preco_maior")
     public ResponseEntity<List<Produto>> getPrecoMenor(){
         return ResponseEntity.ok(produtoRepository.findAll(Sort.by(Sort.Direction.DESC,"preco")));
     }
 
-    @GetMapping("/preco_maior")
+    @GetMapping("/preco_menor")
     public ResponseEntity<List<Produto>> getPrecoMaior(){
         return ResponseEntity.ok(produtoRepository.findAll(Sort.by(Sort.Direction.ASC,"preco")));
     }
@@ -55,7 +55,7 @@ public class ProdutoController {
     }
     
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
 
 
