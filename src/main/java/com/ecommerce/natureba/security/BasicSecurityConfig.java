@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 @EnableWebSecurity
 public class BasicSecurityConfig {
@@ -39,6 +40,7 @@ public class BasicSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .antMatchers("/usuarios/logar").permitAll()
                         .antMatchers("/usuarios/cadastrar").permitAll()
+                        .antMatchers("/produtos/all").permitAll()
                         .antMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated())
                 .httpBasic();
