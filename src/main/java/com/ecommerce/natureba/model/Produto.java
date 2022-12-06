@@ -1,5 +1,6 @@
 package com.ecommerce.natureba.model;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -18,10 +19,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
 
+<<<<<<< HEAD
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
