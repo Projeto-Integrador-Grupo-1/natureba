@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -19,7 +20,7 @@ public class Produto {
     @Size(min = 5, max = 100, message = "O tamanho minimo de 5 e maximo 100 caracteres!" )
     private String nome;
 
-    @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
+    @NotNull(message = "O atributo é obrigatório e não pode ser vazio!")
     private BigDecimal preco;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
