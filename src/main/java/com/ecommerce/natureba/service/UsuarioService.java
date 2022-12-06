@@ -9,53 +9,43 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.nio.charset.Charset;
 import java.util.Optional;
 
+
+@Service
 public class UsuarioService {
 
-    public Optional<Usuario> atualizarUsuario(Usuario usuario) {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-        if(usuarioRepository.findById(usuario.getId()).isPresent()) {
+    public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin){
 
-            Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+        Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 
-            if ( (buscaUsuario.isPresent()) && ( buscaUsuario.get().getId() != usuario.getId()))
-                throw new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+        if(buscaUsuario.isPresent()) {
 
-            usuario.setSenha(criptografarSenha(usuario.getSenha()));
+            if(compararSenhas(usuarioLogin.get().getSenha(), buscaUsuario.get().getSenha())){
 
-            return Optional.ofNullable(usuarioRepository.save(usuario));
-
-        }
-
-        return Optional.empty();
-
-    }
-
-    public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
-
-        Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
-
-        if (usuario.isPresent()) {
-
-            if (compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
-
-                usuarioLogin.get().setId(usuario.get().getId());
-                usuarioLogin.get().setNome(usuario.get().getNome());
-                usuarioLogin.get().setFoto(usuario.get().getFoto());
-                usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getUsuario(),
-                        usuarioLogin.get().getSenha()));
-                usuarioLogin.get().setSenha(usuario.get().getSenha());
+                usuarioLogin.get().setId(buscaUsuario.get().getId());
+                usuarioLogin.get().setNome(buscaUsuario.get().getNome());
+                usuarioLogin.get().setFoto(buscaUsuario.get().getFoto());
+                usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
+                usuarioLogin.get().setSenha(buscaUsuario.get().getSenha());
 
                 return usuarioLogin;
-
             }
         }
 
         return Optional.empty();
+    }
+
+    private String gerarBasicToken(String usuario, String senha) {
+
+        String token = usuario + ":" + senha;
+        byte[] tokenBase64 = Base64.encodeBase64(token.getBytes(Charset.forName("US-ASCII")));
+
+        return "Basic " + new String(tokenBase64);
 
     }
 
