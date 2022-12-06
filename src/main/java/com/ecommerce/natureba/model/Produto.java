@@ -2,9 +2,6 @@ package com.ecommerce.natureba.model;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +21,7 @@ import javax.persistence.ManyToOne;
 @Table(name = "tb_produto")
 public class Produto {
 
-<<<<<<< HEAD
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
