@@ -24,6 +24,7 @@ public class UsuarioController {
 
    @Autowired
     UsuarioService usuarioService;
+
     @PutMapping("/atualizar")
     public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
         return usuarioService.atualizarUsuario(usuario)
