@@ -1,9 +1,12 @@
 package com.ecommerce.natureba.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name ="tb_categoria")
@@ -20,6 +23,11 @@ public class Categoria {
     @NotNull(message = "O atributo da descrição e obrigatório!")
     @Size(min = 1, max = 1000, message = "O tamanho minimo de 1 e maximo 1000 caracteres!" )
     private String descricao;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("categoria")
+    private List<Produto> produto;
+
 
     public Long id() {
         return id;
@@ -43,5 +51,25 @@ public class Categoria {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public List<Produto> getProduto() {
+        return produto;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produto = produto;
     }
 }
