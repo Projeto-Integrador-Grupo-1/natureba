@@ -1,9 +1,11 @@
 package com.ecommerce.natureba.service;
 
 import com.ecommerce.natureba.model.Usuario;
+import com.ecommerce.natureba.model.UsuarioLogin;
 import com.ecommerce.natureba.repository.UsuarioRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
@@ -67,7 +69,13 @@ public class UsuarioService {
         return "Basic " + new String(tokenBase64);
 
     }
+    private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.matches(senhaDigitada, senhaBanco);
+
+    }
 
 
 
