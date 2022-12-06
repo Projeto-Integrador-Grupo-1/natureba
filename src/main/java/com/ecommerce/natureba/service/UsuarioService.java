@@ -1,14 +1,15 @@
 package com.ecommerce.natureba.service;
 
 import com.ecommerce.natureba.model.Usuario;
+import com.ecommerce.natureba.model.UsuarioLogin;
 import com.ecommerce.natureba.repository.UsuarioRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.nio.charset.Charset;
-
 import java.util.Optional;
+
 
 @Service
 public class UsuarioService {
@@ -67,8 +68,5 @@ public class UsuarioService {
         return "Basic " + new String(tokenBase64);
 
     }
-
-
-
 
 }
