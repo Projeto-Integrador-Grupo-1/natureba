@@ -73,4 +73,17 @@ public class ProdutoController {
                 .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto)))
                 .orElse(ResponseEntity.badRequest().build());
     }
+    
+    @PutMapping
+	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {
+					
+		if (produtoRepository.existsById(produto.getId())){
+
+			return categoriaRepository.findById(produto.getCategoria().getId())
+					.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto)))
+					.orElse(ResponseEntity.badRequest().build());
+		}		
+		
+		return ResponseEntity.notFound().build();
+	}
 }

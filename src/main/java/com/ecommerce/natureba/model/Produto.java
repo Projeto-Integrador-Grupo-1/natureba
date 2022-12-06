@@ -1,84 +1,93 @@
 package com.ecommerce.natureba.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 5, max = 100, message = "O tamanho minimo de 5 e maximo 100 caracteres!" )
-    private String nome;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotNull(message = "O atributo nome é obrigatório!")
+	private String nome;
+	
+	@Size(max = 500, message = "O atributo descrição deve ter no máximo 500 caracteres!")
+	private String descricao;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	@NotNull(message = "Preço é obrigatório!")
+	@Positive(message = "O preço deve ser maior do que zero!")
+	private BigDecimal preco;
+	
+	private String foto;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;
 
-    @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    private BigDecimal preco;
+	public Long getId() {
+		return id;
+	}
 
-    @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 5, message = "O tamanho minimo de 5!" )
-    private String descricao;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 5, message = "O tamanho minimo de 1 e maximo 20 caracteres!" )
-    private String foto;
+	public String getNome() {
+		return nome;
+	}
 
-    @ManyToOne
-    @JsonIgnoreProperties("produto")
-    private Categoria categoria;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public BigDecimal getPreco() {
+		return preco;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
 
-    public BigDecimal getPreco() {
-        return preco;
-    }
+	public String getFoto() {
+		return foto;
+	}
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public Categoria getCategoria() {
+		return categoria;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
+	
 }
+
+
