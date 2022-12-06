@@ -5,8 +5,11 @@ import com.ecommerce.natureba.model.UsuarioLogin;
 import com.ecommerce.natureba.repository.UsuarioRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.nio.charset.Charset;
 import java.util.Optional;
 
@@ -37,6 +40,29 @@ public class UsuarioService {
         return encoder.encode(senha);
     }
 
+    public Optional<Usuario> atualizarUsuario(Usuario usuario) {
+
+        if(usuarioRepository.findById(usuario.getId()).isPresent()) {
+
+            Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+
+            if ( (buscaUsuario.isPresent()) && ( buscaUsuario.get().getId() != usuario.getId()))
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+
+            if (usuario.getFoto().isBlank())
+                usuario.setFoto("https://i.imgur.com/Zz4rzVR.png");
+
+            usuario.setSenha(criptografarSenha(usuario.getSenha()));
+
+            return Optional.ofNullable(usuarioRepository.save(usuario));
+
+        }
+
+        return Optional.empty();
+
+    }
+
 
 
     public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin){
@@ -58,6 +84,13 @@ public class UsuarioService {
         }
 
         return Optional.empty();
+    }
+
+    private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.matches(senhaDigitada, senhaBanco);
     }
 
     private String gerarBasicToken(String usuario, String senha) {
