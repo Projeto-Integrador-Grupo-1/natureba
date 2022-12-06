@@ -7,10 +7,9 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.nio.charset.Charset;
-
 import java.util.Optional;
+
 
 @Service
 public class UsuarioService {
@@ -71,6 +70,7 @@ public class UsuarioService {
     }
     private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
 
+<<<<<<< HEAD
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         return encoder.matches(senhaDigitada, senhaBanco);
@@ -79,4 +79,6 @@ public class UsuarioService {
 
 
 
+=======
+>>>>>>> origin/task06
 }
