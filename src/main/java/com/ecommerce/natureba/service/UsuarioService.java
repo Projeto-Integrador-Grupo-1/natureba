@@ -1,25 +1,20 @@
 package com.ecommerce.natureba.service;
 
 import com.ecommerce.natureba.model.Usuario;
-<<<<<<< HEAD
+
 import com.ecommerce.natureba.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-=======
+
 import com.ecommerce.natureba.model.UsuarioLogin;
-import com.ecommerce.natureba.repository.UsuarioRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.Charset;
->>>>>>> task05
+
 import java.util.Optional;
 
 
@@ -27,10 +22,8 @@ import java.util.Optional;
 public class UsuarioService {
 
     @Autowired
-<<<<<<< HEAD
-    UsuarioRepository usuarioRepository;
-=======
     private UsuarioRepository usuarioRepository;
+
 
     public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
 
@@ -52,7 +45,7 @@ public class UsuarioService {
         return encoder.encode(senha);
     }
 
->>>>>>> task05
+
     public Optional<Usuario> atualizarUsuario(Usuario usuario) {
 
         if(usuarioRepository.findById(usuario.getId()).isPresent()) {
@@ -63,7 +56,7 @@ public class UsuarioService {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 
-<<<<<<< HEAD
+
            /** if (calcularIdade(usuario.getDataNascimento()) < 18)
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Usuário é menor de 18 anos", null);
@@ -72,12 +65,12 @@ public class UsuarioService {
                 usuario.setFoto("https://i.imgur.com/Zz4rzVR.png");
 
             usuario.setSenha(criptografarSenha(usuario.getSenha())); **/
-=======
+
             if (usuario.getFoto().isBlank())
                 usuario.setFoto("https://i.imgur.com/Zz4rzVR.png");
 
             usuario.setSenha(criptografarSenha(usuario.getSenha()));
->>>>>>> task05
+
 
             return Optional.ofNullable(usuarioRepository.save(usuario));
 
@@ -86,8 +79,6 @@ public class UsuarioService {
         return Optional.empty();
 
     }
-<<<<<<< HEAD
-=======
 
 
 
@@ -128,5 +119,5 @@ public class UsuarioService {
 
     }
 
->>>>>>> task05
+
 }
