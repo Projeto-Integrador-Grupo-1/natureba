@@ -1,5 +1,7 @@
 package com.ecommerce.natureba.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -13,19 +15,16 @@ public class Usuario {
     private Long id;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 5, max = 100, message = "O tamanho minimo de 5 e maximo 100 caracteres!" )
+    @Size(min = 4, max = 100, message = "O tamanho minimo de 5 e maximo 100 caracteres!" )
     private String nome;
 
+    @Schema(example = "email@email.com.br")
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
     @Size(min = 8, message = "O tamanho minimo de 8" )
     private String usuario;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-<<<<<<< HEAD
-    @Size(min = 6, message = "O tamanho minimo de 20!" )
-=======
     @Size(min = 8, message = "O tamanho minimo de 8!" )
->>>>>>> origin
     private String senha;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
