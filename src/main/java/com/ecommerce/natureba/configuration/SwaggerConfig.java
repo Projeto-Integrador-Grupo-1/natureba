@@ -22,7 +22,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Projeto Natureba")
-                        .description("Projeto Matureba - Generation Brasil")
+                        .description("Projeto Natureba - Generation Brasil")
                         .version("v0.0.1")
                         .license(new License()
                                 .name("NeoCamp-MLB")
