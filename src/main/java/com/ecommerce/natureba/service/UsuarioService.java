@@ -20,10 +20,8 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
-
     @Autowired
     private UsuarioRepository usuarioRepository;
-
 
     public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
 
@@ -38,13 +36,6 @@ public class UsuarioService {
         return Optional.of(usuarioRepository.save(usuario));
 
     }
-    private String criptografarSenha(String senha) {
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        return encoder.encode(senha);
-    }
-
 
     public Optional<Usuario> atualizarUsuario(Usuario usuario) {
 
@@ -56,21 +47,10 @@ public class UsuarioService {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 
-
-           /** if (calcularIdade(usuario.getDataNascimento()) < 18)
-                throw new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "Usuário é menor de 18 anos", null);
-
-            if (usuario.getFoto().isBlank())
-                usuario.setFoto("https://i.imgur.com/Zz4rzVR.png");
-
-            usuario.setSenha(criptografarSenha(usuario.getSenha())); **/
-
             if (usuario.getFoto().isBlank())
                 usuario.setFoto("https://i.imgur.com/Zz4rzVR.png");
 
             usuario.setSenha(criptografarSenha(usuario.getSenha()));
-
 
             return Optional.ofNullable(usuarioRepository.save(usuario));
 
@@ -79,8 +59,6 @@ public class UsuarioService {
         return Optional.empty();
 
     }
-
-
 
     public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin){
 
@@ -94,13 +72,20 @@ public class UsuarioService {
                 usuarioLogin.get().setNome(buscaUsuario.get().getNome());
                 usuarioLogin.get().setFoto(buscaUsuario.get().getFoto());
                 usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
-                usuarioLogin.get().setSenha(buscaUsuario.get().getSenha());
+                //usuarioLogin.get().setSenha(buscaUsuario.get().getSenha());
 
                 return usuarioLogin;
             }
         }
 
         return Optional.empty();
+    }
+
+    private String criptografarSenha(String senha) {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.encode(senha);
     }
 
     private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
@@ -118,6 +103,5 @@ public class UsuarioService {
         return "Basic " + new String(tokenBase64);
 
     }
-
 
 }

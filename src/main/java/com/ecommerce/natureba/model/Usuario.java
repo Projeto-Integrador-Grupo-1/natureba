@@ -1,4 +1,5 @@
 package com.ecommerce.natureba.model;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -20,7 +21,7 @@ public class Usuario {
     private String usuario;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
-    @Size(min = 20, message = "O tamanho minimo de 20!" )
+    @Size(min = 6, message = "O tamanho minimo de 20!" )
     private String senha;
 
     @NotBlank(message = "O atributo é obrigatório e não pode ser vazio!")
