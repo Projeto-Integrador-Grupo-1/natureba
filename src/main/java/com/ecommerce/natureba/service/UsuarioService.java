@@ -101,14 +101,8 @@ public class UsuarioService {
         return "Basic " + new String(tokenBase64);
 
     }
-    private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
 
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        return encoder.matches(senhaDigitada, senhaBanco);
-
-    }
 
 
 
