@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.nio.charset.Charset;
 import java.util.Optional;
 
-
 @Service
 public class UsuarioService {
 
@@ -32,12 +31,6 @@ public class UsuarioService {
 
         return Optional.of(usuarioRepository.save(usuario));
 
-    }
-    private String criptografarSenha(String senha) {
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        return encoder.encode(senha);
     }
 
     public Optional<Usuario> atualizarUsuario(Usuario usuario) {
@@ -63,8 +56,6 @@ public class UsuarioService {
 
     }
 
-
-
     public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin){
 
         Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
@@ -77,13 +68,20 @@ public class UsuarioService {
                 usuarioLogin.get().setNome(buscaUsuario.get().getNome());
                 usuarioLogin.get().setFoto(buscaUsuario.get().getFoto());
                 usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
-                usuarioLogin.get().setSenha(buscaUsuario.get().getSenha());
+                //usuarioLogin.get().setSenha(buscaUsuario.get().getSenha());
 
                 return usuarioLogin;
             }
         }
 
         return Optional.empty();
+    }
+
+    private String criptografarSenha(String senha) {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return encoder.encode(senha);
     }
 
     private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
