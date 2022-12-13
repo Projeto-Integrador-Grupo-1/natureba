@@ -17,10 +17,10 @@ import java.util.Optional;
 @RequestMapping("/usuario")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
-   @Autowired
+    @Autowired
     UsuarioRepository usuarioRepository;
 
-   @Autowired
+    @Autowired
     UsuarioService usuarioService;
 
     @GetMapping("/all")
